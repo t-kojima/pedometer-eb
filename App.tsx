@@ -1,28 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import DashboardScreen from './src/components/Dashboard';
+import SigninScreen from './src/components/Signin';
 
-export default function App() {
+
+const Stack = createStackNavigator();
+function RootStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your ap...p!</Text>
-      <StatusBar style="auto" />
-      <Button
-        title="Click Me"
-        onPress={() => {
-          alert('アラート表示');
-          console.log('コンソールログ');
-        }}
-      />
-    </View>
+    <Stack.Navigator
+      initialRouteName="Signin"
+      screenOptions={{ gestureEnabled: false }}
+    >
+      <Stack.Screen name="Dashboard" component={DashboardScreen} />
+      <Stack.Screen name="Signin" component={SigninScreen} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
+  );
+}
