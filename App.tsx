@@ -9,7 +9,6 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const firebaseUser = useFirebaseUser();
-  console.log('root', firebaseUser);
 
   const RootStack = () => {
     return (
