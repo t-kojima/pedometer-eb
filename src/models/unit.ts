@@ -1,13 +1,14 @@
 import firebase from 'firebase';
 import { FieldValue } from '../firebase';
 import { ISkill } from './skill';
-import { Element } from './element';
+import { Element, UnitType } from './const';
 
 export interface IUnit {
   id: string;
   ref: firebase.firestore.DocumentReference | null;
   name: string;
   rank: number;
+  type: UnitType;
   life: number;
   atk: number;
   def: number;
@@ -15,6 +16,7 @@ export interface IUnit {
   skillSlots: number;
   itemSlots: number;
   spellSlots: Element[];
+  image: string;
   createdAt: firebase.firestore.Timestamp;
   updatedAt: firebase.firestore.Timestamp;
 }
@@ -24,6 +26,7 @@ export class Unit implements IUnit {
   ref: firebase.firestore.DocumentReference | null = null;
   name: string = '';
   rank: number = 0;
+  type: UnitType = 'unknown';
   life: number = 0;
   atk: number = 0;
   def: number = 0;
@@ -31,6 +34,7 @@ export class Unit implements IUnit {
   skillSlots: number = 0;
   itemSlots: number = 0;
   spellSlots: Element[] = [];
+  image: string = '';
   createdAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp;
   updatedAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp;
 
@@ -39,6 +43,7 @@ export class Unit implements IUnit {
     ref = null,
     name = '',
     rank = 0,
+    type = 'unknown',
     life = 0,
     atk = 0,
     def = 0,
@@ -46,6 +51,7 @@ export class Unit implements IUnit {
     skillSlots = 0,
     itemSlots = 0,
     spellSlots = [],
+    image = '',
     createdAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
     updatedAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
   }: Partial<IUnit>) {
@@ -54,6 +60,7 @@ export class Unit implements IUnit {
       ref,
       name,
       rank,
+      type,
       life,
       atk,
       def,
@@ -61,6 +68,7 @@ export class Unit implements IUnit {
       skillSlots,
       itemSlots,
       spellSlots,
+      image,
       createdAt,
       updatedAt,
     });
@@ -70,6 +78,7 @@ export class Unit implements IUnit {
     return {
       name: this.name,
       rank: this.rank,
+      type: this.type,
       life: this.life,
       atk: this.atk,
       def: this.def,
@@ -77,6 +86,7 @@ export class Unit implements IUnit {
       skillSlots: this.skillSlots,
       itemSlots: this.itemSlots,
       spellSlots: this.spellSlots,
+      image: this.image,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
