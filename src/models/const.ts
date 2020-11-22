@@ -1,19 +1,19 @@
-export type Element = 'fire' | 'water' | 'wind' | 'earth' | 'holy' | 'evil' | 'any';
+export type Element = '火' | '水' | '風' | '土' | '聖' | '魔' | '無';
+export type DamageElement = '火炎' | '津波' | '竜巻' | '吹雪' | '電撃' | '地震'
 export type UnitType =
   | '魔法生物'
-  | 'magic-creature' // 魔法生物
   | 'angel'
   | 'dragon'
-  | 'human'
+  | '人間'
   | 'animal'
   | 'minotaur' // ミノタウロス
   | 'demon'
-  | 'spirit'
+  | '精霊'
   | 'undead'
   | 'insect'
   | 'bird'
   | 'elf'
-  | 'lizard' // リザード
+  | 'リザード'
   | 'naga' // ナーガ
   | 'aquarium' // 水生生物
   | 'unknown';

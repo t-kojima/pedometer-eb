@@ -9,6 +9,7 @@ export interface IUnit extends Lot {
   ref: firebase.firestore.DocumentReference | null;
   name: string;
   rank: number;
+  element: Element;
   type: UnitType;
   life: number;
   atk: number;
@@ -27,6 +28,7 @@ export class Unit implements IUnit {
   ref: firebase.firestore.DocumentReference | null = null;
   name: string = '';
   rank: number = 0;
+  element: Element = '無';
   type: UnitType = 'unknown';
   life: number = 0;
   atk: number = 0;
@@ -46,6 +48,7 @@ export class Unit implements IUnit {
     ref = null,
     name = '',
     rank = 0,
+    element = '無',
     type = 'unknown',
     life = 0,
     atk = 0,
@@ -64,6 +67,7 @@ export class Unit implements IUnit {
       id,
       ref,
       name,
+      element,
       rank,
       type,
       life,
@@ -85,6 +89,7 @@ export class Unit implements IUnit {
     return {
       name: this.name,
       rank: this.rank,
+      element: this.element,
       type: this.type,
       life: this.life,
       atk: this.atk,
