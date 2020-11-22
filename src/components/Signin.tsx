@@ -3,6 +3,7 @@ import Expo from 'expo';
 import { StyleSheet, Text, View, Button } from 'react-native';
 // import * as Google from 'expo-google-app-auth';
 import { GoogleAuthProvider, auth } from '../firebase';
+import styles from '../styles';
 
 export default function SignIn(props: any) {
   const login = async () => {
@@ -16,12 +17,3 @@ export default function SignIn(props: any) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

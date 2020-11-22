@@ -5,3 +5,4 @@ export type IUser = _IUser;
 
 export { Unit } from './unit';
 export { User } from './user';
+export { Slave } from './slave';
