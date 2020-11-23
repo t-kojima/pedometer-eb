@@ -7,6 +7,7 @@ import SlaveRow from './SlaveRow';
 import useUserSubscription from '../hooks/useUserSubscription';
 import useCollectionSubscription from '../hooks/useCollectionSubscription';
 import { Slave } from '../../models';
+import FooterComponent from '../Footer';
 
 const usersRef = db.collection('users');
 
@@ -25,6 +26,7 @@ export default function Slaves(props: any) {
           ))}
         </List>
       </Content>
+      <FooterComponent {...props} uid={uid} active="slaves" />
     </Container>
   );
 }

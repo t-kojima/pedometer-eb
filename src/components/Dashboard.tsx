@@ -8,6 +8,7 @@ import { db } from '../firebase';
 import { Slave, Unit } from '../models';
 import useCollectionSubscription from './hooks/useCollectionSubscription';
 import { drawLots } from '../utils';
+import FooterComponent from './Footer';
 
 const initialize = async (uid: string) => {
   console.info('initialize');
@@ -48,26 +49,7 @@ export default function Dashboard(props: any) {
           <Text>ガチャ</Text>
         </Button>
       </Content>
-      <Footer>
-        <FooterTab>
-          <Button vertical onPress={() => navigation.navigate('Slaves', { uid: firebaseUser && firebaseUser.uid })}>
-            <Icon name="apps" />
-            <Text>Monsters</Text>
-          </Button>
-          <Button vertical>
-            <Icon name="camera" />
-            <Text>Camera</Text>
-          </Button>
-          <Button vertical active>
-            <Icon active name="navigate" />
-            <Text>Navigate</Text>
-          </Button>
-          <Button vertical>
-            <Icon name="person" />
-            <Text>Contact</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
+      <FooterComponent {...props} uid={firebaseUser && firebaseUser.uid} active="dashboard" />
     </Container>
   );
 }
