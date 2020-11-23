@@ -6,6 +6,7 @@ export interface IUser {
   ref: firebase.firestore.DocumentReference | null;
   name: string;
   slaveIds: string[];
+  costs: number;
   createdAt: firebase.firestore.Timestamp;
   updatedAt: firebase.firestore.Timestamp;
   toObject: () => {};
@@ -16,6 +17,7 @@ export class User implements IUser {
   ref: firebase.firestore.DocumentReference | null = null;
   name: string = '';
   slaveIds: string[] = [];
+  costs: number = 0;
   createdAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp;
   updatedAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp;
 
@@ -24,6 +26,7 @@ export class User implements IUser {
     ref = null,
     name = '',
     slaveIds = [],
+    costs = 0,
     createdAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
     updatedAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
   }: Partial<IUser>) {
@@ -32,6 +35,7 @@ export class User implements IUser {
       ref,
       name,
       slaveIds,
+      costs,
       createdAt,
       updatedAt,
     });
@@ -41,6 +45,7 @@ export class User implements IUser {
     return {
       name: this.name,
       slaveIds: this.slaveIds,
+      costs: this.costs,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

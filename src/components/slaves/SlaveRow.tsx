@@ -1,51 +1,61 @@
 import React from 'react';
-import firebase from 'firebase';
-import { StyleSheet, Image, View, Button } from 'react-native';
-import { Container, Header, Content, List, ListItem, Left, Right, Icon, Thumbnail, Body, Text } from 'native-base';
+import { ListItem, Left, Right, Thumbnail, Body, Text, Button, Icon } from 'native-base';
 
 import { db } from '../../firebase';
 import useDocumentSubscription from '../hooks/useDocumentSubscription';
-import { ISlave, Unit } from '../../models';
+import { ISlave, Unit, IUnit } from '../../models';
 
 type Props = {
   slave: ISlave;
+  isParty: boolean;
+  onAddParty: (slave: ISlave, unit: IUnit) => void;
+  onRemoveParty: (slave: ISlave, unit: IUnit) => void;
 };
 
 const unitsRef = db.collection('units');
 
 export default function SlaveRow(props: Props) {
-  const { slave } = props;
+  const { slave, isParty = false, onAddParty, onRemoveParty } = props;
   const unit = useDocumentSubscription(slave && unitsRef.doc(slave.unitId), Unit, [slave]);
 
+  const onPress = async () => {
+    if (!unit) return;
+
+    if (isParty) {
+      onRemoveParty(slave, unit);
+    } else {
+      onAddParty(slave, unit);
+    }
+  };
+
+  const onDetail = async () => {
+    console.log("on detail")
+  }
+
   return (
-    <ListItem avatar>
+    <ListItem avatar onPress={onPress}>
       {unit && (
         <>
           <Left>
-            <Thumbnail square source={{ uri: unit.image }} />
+            <Thumbnail
+              square
+              source={{ uri: unit.image }}
+              style={isParty && { borderWidth: 3, borderColor: 'red', borderRadius: 10 }}
+            />
           </Left>
           <Body>
             <Text>{unit.name}</Text>
-            <Text>Lv {slave.level} / exp {slave.next} %</Text>
+            <Text>
+              Lv {slave.level} / exp {slave.next} %
+            </Text>
             <Text note>Doing what you like will always keep you happy . .</Text>
           </Body>
           <Right>
-            <Text note>3:43 pm</Text>
+            <Text>Rank {unit.rank}</Text>
+            <Button transparent onPress={onDetail}><Icon name='search' /></Button>
           </Right>
         </>
       )}
-      {/* {unit && (
-        <Image source={{ uri: unit.image }} resizeMode="contain" style={{ width: 96, height: 96 }} />
-      )} */}
     </ListItem>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 'auto',
-    marginHorizontal: 'auto',
-    padding: 24,
-    backgroundColor: '#81d4fa',
-  },
-});
