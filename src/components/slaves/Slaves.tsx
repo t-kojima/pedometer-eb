@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { Container, Header, Content, List, ListItem, Left, Right, Icon } from 'native-base';
 
 import { db } from '../../firebase';
 import SlaveRow from './SlaveRow';
@@ -12,13 +13,18 @@ const usersRef = db.collection('users');
 export default function Slaves(props: any) {
   const { uid } = props.route.params;
   // const user = useUserSubscription(uid);
-  const slaves = useCollectionSubscription(uid && usersRef.doc(uid).collection('slaves'), Slave, [uid]);
+  const slaves = useCollectionSubscription(uid && usersRef.doc(uid).collection('slaves').orderBy('createdAt', 'desc'), Slave, [uid]);
 
   return (
-    <View>
-      {slaves.map((slave) => (
-        <SlaveRow key={slave.id} {...props} slave={slave} />
-      ))}
-    </View>
+    <Container>
+      {/* <Header /> */}
+      <Content>
+        <List>
+          {slaves.map((slave) => (
+            <SlaveRow key={slave.id} {...props} slave={slave} />
+          ))}
+        </List>
+      </Content>
+    </Container>
   );
 }

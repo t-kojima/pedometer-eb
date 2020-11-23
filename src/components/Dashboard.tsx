@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
+
 import useFirebaseUser from './hooks/useFirebaseUser';
 import useUserSubscription from './hooks/useUserSubscription';
 import styles from '../styles';
@@ -24,7 +25,7 @@ export default function Dashboard(props: any) {
   const { navigation } = props;
   const firebaseUser = useFirebaseUser();
   const user = useUserSubscription(firebaseUser && firebaseUser.uid);
-  const units = useCollectionSubscription(unitsRef, Unit)
+  const units = useCollectionSubscription(unitsRef, Unit);
 
   useEffect(() => {
     if (!user && firebaseUser) initialize(firebaseUser.uid);
@@ -32,16 +33,41 @@ export default function Dashboard(props: any) {
 
   const onDrawLots = async () => {
     if (!firebaseUser || !units) return;
- 
+    const userRef = db.collection('users').doc(firebaseUser.uid);
+
     const unit = drawLots(units);
-    alert(`${unit.name}が当たりました！`)
-  }
+    await userRef.collection('slaves').add(new Slave({ unitId: unit.id }).toObject());
+    alert(`[${unit.name}] を手に入れた！`);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text>dashboard</Text>
-      <Button title="所持モンスター 一覧" onPress={() => navigation.navigate('Slaves', { uid: firebaseUser && firebaseUser.uid })}></Button>
-      <Button title="ガチャ" onPress={onDrawLots} />
-    </View>
+    <Container>
+      {/* <Header /> */}
+      <Content>
+        <Button bordered onPress={onDrawLots}>
+          <Text>ガチャ</Text>
+        </Button>
+      </Content>
+      <Footer>
+        <FooterTab>
+          <Button vertical onPress={() => navigation.navigate('Slaves', { uid: firebaseUser && firebaseUser.uid })}>
+            <Icon name="apps" />
+            <Text>Monsters</Text>
+          </Button>
+          <Button vertical>
+            <Icon name="camera" />
+            <Text>Camera</Text>
+          </Button>
+          <Button vertical active>
+            <Icon active name="navigate" />
+            <Text>Navigate</Text>
+          </Button>
+          <Button vertical>
+            <Icon name="person" />
+            <Text>Contact</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
+    </Container>
   );
 }

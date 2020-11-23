@@ -13,7 +13,7 @@ export default function App() {
 
   const RootStack = () => {
     return (
-      <Stack.Navigator initialRouteName="Signin" screenOptions={{ gestureEnabled: false }}>
+      <Stack.Navigator initialRouteName="Signin" screenOptions={{ gestureEnabled: false, headerShown: false }}>
         {firebaseUser ? (
           <>
             <Stack.Screen name="Dashboard" component={DashboardScreen} />
