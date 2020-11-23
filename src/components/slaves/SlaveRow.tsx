@@ -39,7 +39,7 @@ export default function SlaveRow(props: Props) {
           <Left>
             <Thumbnail
               square
-              source={{ uri: unit.image }}
+              source={{ uri: unit.image?.uri }}
               style={isParty && { borderWidth: 3, borderColor: 'red', borderRadius: 10 }}
             />
           </Left>

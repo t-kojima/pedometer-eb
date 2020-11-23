@@ -26,7 +26,7 @@ export default function PartySlaveAvatar(props: Props) {
     <ListItem noIndent onPress={onRemove}>
       {unit && (
         <Left>
-          <Thumbnail small source={{ uri: unit.image }} />
+          <Thumbnail small source={{ uri: unit.image?.uri }} />
         </Left>
       )}
     </ListItem>

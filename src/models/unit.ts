@@ -4,6 +4,12 @@ import { ISkill } from './skill';
 import { Element, UnitType } from './const';
 import { Lot, Rarity } from './lot';
 
+type Image = {
+  uri: string;
+  width: number;
+  height: number;
+}
+
 export interface IUnit extends Lot {
   id: string;
   ref: firebase.firestore.DocumentReference | null;
@@ -18,7 +24,7 @@ export interface IUnit extends Lot {
   skillSlots: number;
   itemSlots: number;
   spellSlots: Element[];
-  image: string;
+  image: Image | null;
   createdAt: firebase.firestore.Timestamp;
   updatedAt: firebase.firestore.Timestamp;
 }
@@ -37,7 +43,7 @@ export class Unit implements IUnit {
   skillSlots: number = 0;
   itemSlots: number = 0;
   spellSlots: Element[] = [];
-  image: string = '';
+  image: Image | null = null;
   isLot: boolean = true;
   rarity: Rarity = 'unknown';
   createdAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp;
@@ -57,7 +63,7 @@ export class Unit implements IUnit {
     skillSlots = 0,
     itemSlots = 0,
     spellSlots = [],
-    image = '',
+    image = null,
     isLot = true,
     rarity = 'unknown',
     createdAt = FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
