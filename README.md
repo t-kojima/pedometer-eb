@@ -2,6 +2,7 @@
 
 ソザイ
 http://rpgdot3319.g1.xrea.com/
+https://sites.google.com/site/closetvx/Home
 
 カコウ
 https://www.peko-step.com/tool/alphachannel.html

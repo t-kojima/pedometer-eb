@@ -12,7 +12,7 @@ export default function FooterComponent(props: Props) {
 
   return (
     <Footer>
-      <FooterTab>
+      <FooterTab style={{ backgroundColor: 'black' }}>
         <Button vertical active={active === 'dashboard'} onPress={() => navigation.navigate('Dashboard', { uid })}>
           <Icon name="home" />
           <Text>Home</Text>

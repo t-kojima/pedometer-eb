@@ -3,7 +3,7 @@ import { Spinner } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import DashboardScreen from './src/components/Dashboard';
+import DashboardScreen from './src/components/dashboard/Dashboard';
 import SigninScreen from './src/components/Signin';
 import SlavesScreen from './src/components/slaves/Slaves';
 import RoomsScreen from './src/components/battles/Rooms';

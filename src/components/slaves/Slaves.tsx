@@ -1,18 +1,16 @@
 import React from 'react';
-// import { StyleSheet, Text, View, Button } from 'react-native';
-import { Container, Header, Content, List, Button, Body, Title, Left, Right, Icon, Card, Text, Toast } from 'native-base';
+import { Container, Header, Content, List } from 'native-base';
 
 import { db } from '../../firebase';
 import { User, Slave, ISlave, IUnit } from '../../models';
 import FooterComponent from '../Footer';
 import SlaveRow from './SlaveRow';
-import PartySlaveAvatar from './PartySlaveAvatar';
 import useCollectionSubscription from '../hooks/useCollectionSubscription';
 import useDocumentSubscription from '../hooks/useDocumentSubscription';
+import PartyImages from '../dashboard/PartyImages';
+import { MAX_COST } from '../../config';
 
 const usersRef = db.collection('users');
-
-const MAX_COST = 8;
 
 export default function Slaves(props: any) {
   const { uid } = props.route.params;
@@ -39,29 +37,20 @@ export default function Slaves(props: any) {
 
   return (
     <Container>
-      <Header style={{ backgroundColor: '#fafafa' }}>
-        <Left>
-          <Text>
-            {user && user.costs} / {MAX_COST}
-          </Text>
-        </Left>
-        <Body>
-          {user && (
-            <List
-              horizontal={true}
-              dataArray={user.slaveIds}
-              renderRow={(slaveId) => {
-                const slave = slaves.find((_) => _.id === slaveId);
-                return <PartySlaveAvatar {...props} slave={slave} onRemoveParty={onRemoveParty} />;
-              }}
-            ></List>
-          )}
-        </Body>
+      <Header style={{ height: 128, paddingLeft: 0, paddingRight: 0 }}>
+        {user && <PartyImages {...props} uid={uid} slaveIds={user.slaveIds} costs={user.costs} />}
       </Header>
       <Content padder>
         <List>
           {slaves.map((slave) => (
-            <SlaveRow key={slave.id} {...props} slave={slave} onAddParty={onAddParty} onRemoveParty={onRemoveParty} isParty={user?.slaveIds.includes(slave.id)} />
+            <SlaveRow
+              key={slave.id}
+              {...props}
+              slave={slave}
+              onAddParty={onAddParty}
+              onRemoveParty={onRemoveParty}
+              isParty={user?.slaveIds.includes(slave.id)}
+            />
           ))}
         </List>
       </Content>

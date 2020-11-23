@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
+import { Container, Content, Button, Text } from 'native-base';
 
-import useFirebaseUser from './hooks/useFirebaseUser';
-import useUserSubscription from './hooks/useUserSubscription';
-import styles from '../styles';
-import { db } from '../firebase';
-import { Slave, Unit } from '../models';
-import useCollectionSubscription from './hooks/useCollectionSubscription';
-import { drawLots } from '../utils';
-import FooterComponent from './Footer';
+import useFirebaseUser from '../hooks/useFirebaseUser';
+import useUserSubscription from '../hooks/useUserSubscription';
+import { db } from '../../firebase';
+import { Slave, Unit } from '../../models';
+import useCollectionSubscription from '../hooks/useCollectionSubscription';
+import { drawLots } from '../../utils';
+import FooterComponent from '../Footer';
+import PartyImages from './PartyImages';
 
 const initialize = async (uid: string) => {
   console.info('initialize');
@@ -43,8 +43,10 @@ export default function Dashboard(props: any) {
 
   return (
     <Container>
-      {/* <Header /> */}
       <Content>
+        {
+          user && <PartyImages {...props} uid={firebaseUser && firebaseUser.uid} slaveIds={user.slaveIds} costs={user.costs} />
+        }
         <Button bordered onPress={onDrawLots}>
           <Text>ガチャ</Text>
         </Button>
