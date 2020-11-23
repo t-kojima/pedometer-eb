@@ -21,7 +21,7 @@ export default function FooterComponent(props: Props) {
           <Icon name="apps" />
           <Text>Monsters</Text>
         </Button>
-        <Button vertical active={active === 'battle'}>
+        <Button vertical active={active === 'battle'} onPress={() => navigation.navigate('Rooms', { uid })}>
           <Icon name="flag" />
           <Text>Battle</Text>
         </Button>
